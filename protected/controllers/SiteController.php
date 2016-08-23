@@ -93,4 +93,7 @@ class SiteController extends Controller
 		}
 		echo $count;
 	}
+	public function actionCheck(){
+		echo "This is the second design variant.";
+	}
 }
