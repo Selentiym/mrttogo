@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </form>
-                <p>или по телефону <a href="<?php echo $base; ?>/tel:<?php echo $tel['raw']; ?>"><?php echo $tel['formatted']; ?></a></p>
+                <p>или по телефону <a href="tel:<?php echo $tel['raw']; ?>"><?php echo $tel['formatted']; ?></a></p>
             </div>
         </div>
     </div>
