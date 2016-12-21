@@ -35,25 +35,31 @@ function EvaluateOnPageLoad () {
 	});
 
 	$("#callback-registration").off("submit");
-	$("#callback-registration").submit(function() {
-		if (yaCounter37896725) {
-			yaCounter37896725.reachGoal('formSent');
+	$("#callback-registration").submit(function(event) {
+		try {
+			if (yaCounter37896725) {
+				yaCounter37896725.reachGoal('formSent');
+			}
+		} catch(e) {
+			console.log(e);
+		} finally {
+			var button = $(this).find(".order-button");
+			var loader = $("<img/>",{
+				src:baseUrl+"/img_thirdDesign/loading.gif"
+			});
+			button.replaceWith(loader);
+			$.ajax({
+				type: "GET",
+				url: baseUrl + "/post_thirdDesign",
+				data: $(this).serialize()
+			}).done(function() {
+				alert("Спасибо за заявку!");
+				setTimeout(function() {
+					$.fancybox.close();
+				}, 10);
+			});
+			event.preventDefault();
 		}
-		var button = $(this).find(".order-button");
-		var loader = $("<img/>",{
-			src:baseUrl+"/img_thirdDesign/loading.gif"
-		});
-		button.replaceWith(loader);
-		$.ajax({
-			type: "GET",
-			url: baseUrl + "/post_thirdDesign",
-			data: $(this).serialize()
-		}).done(function() {
-			alert("Спасибо за заявку!");
-			setTimeout(function() {
-				$.fancybox.close();
-			}, 10);
-		});
 		return false;
 	});
 }
