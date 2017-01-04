@@ -801,6 +801,10 @@ MAP
 	top:-75px;
 	left:-16px;
 }
+#dmg {
+	top:-70px;
+	left:-30px;
+}
 #mart {
 	top:-46px;
 	left:-90px;
@@ -820,6 +824,10 @@ MAP
 #energo_len {
 	top:110px;
 	left:-70px;
+}
+#ona_vet {
+	top:120px;
+	left:-100px;
 }
 #medem {
 	top:-10px;
@@ -856,6 +864,11 @@ MAP
 #ndc_isp{
 	top:-150px;
     left:-85px;
+}
+
+#ona_sereb{
+    top:-145px;
+    left:-75px;
 }
 #ndc_ent{
 	top:-20px;
