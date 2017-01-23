@@ -20,6 +20,44 @@ $name = trim($_GET["name"]);
 $phone = trim($_GET["phone"]);
 
 
+
+$params = array(
+    'pid' => -2,
+    'name' => $name,
+    'phone' => $phone,
+    'description' => 'Заявка с мрттого'
+);
+
+
+//посылаем заявку к себе
+if( $curl = curl_init() ) {
+    try {
+        curl_setopt($curl, CURLOPT_URL, 'http://p.mrimaster.ru/stat/FormAssign?' . http_build_query($params));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $out = curl_exec($curl);
+        //echo $out;
+        curl_close($curl);
+    } catch (Exception $e) {
+
+    }
+}
+
+
+//посылаем заявку на новую систему тоже
+if( $curl = curl_init() ) {
+    try {
+        curl_setopt($curl, CURLOPT_URL, 'http://web-utils.ru/api/form?' . http_build_query($params));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $out = curl_exec($curl);
+        //echo $out;
+        curl_close($curl);
+    } catch (Exception $e) {
+
+    }
+}
+
+
+
     $headers = "From: mrt-to-go@mail.ru\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html\r\n";
@@ -54,17 +92,4 @@ $mail->Password = include(Yii::getpathOfAlias('application.components') . '/mrim
     $mail->Body = $text;
     if (!$mail->Send()) {
         //echo "sent!";
-    }
-    $params = array(
-        'pid' => -2,
-        'name' => $name,
-        'phone' => $phone,
-        'description' => 'Заявка с мрттого'
-    );
-    if( $curl = curl_init() ) {
-        curl_setopt($curl, CURLOPT_URL, 'http://o.mrimaster.ru/onlineRequest/submit?'.http_build_query($params));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
-        $out = curl_exec($curl);
-        //echo $out;
-        curl_close($curl);
     }
