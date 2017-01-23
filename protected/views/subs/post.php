@@ -31,7 +31,41 @@ $headers .= "Content-type: text/html\r\n";
 	$text .= "Время: <strong>{$time}</strong><br/>";
 	$text .= "Имя: <strong>{$name}</strong><br/>";
 	$text .= "Телефон: <strong>{$name2}</strong><br/>";
- 
+
+	$params = array(
+			'pid' => -2,
+			'name' => $name,
+			'phone' => $name2,
+			'description' => 'Заявка с мрттого'
+	);
+
+//посылаем заявку к себе
+	if( $curl = curl_init() ) {
+		try {
+			curl_setopt($curl, CURLOPT_URL, 'http://p.mrimaster.ru/stat/FormAssign?' . http_build_query($params));
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			$out = curl_exec($curl);
+			//echo $out;
+			curl_close($curl);
+		} catch (Exception $e) {
+
+		}
+	}
+
+
+//посылаем заявку на новую систему тоже
+	if( $curl = curl_init() ) {
+		try {
+			curl_setopt($curl, CURLOPT_URL, 'http://web-utils.ru/api/form?' . http_build_query($params));
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			$out = curl_exec($curl);
+			//echo $out;
+			curl_close($curl);
+		} catch (Exception $e) {
+
+		}
+	}
+
  
  require_once(Yii::getPathOfAlias('webroot.vendor') . DIRECTORY_SEPARATOR . 'autoload.php');
  $mail = new PHPMailer(true);
@@ -59,27 +93,8 @@ $headers .= "Content-type: text/html\r\n";
 	if (!$mail->Send()) {
 	//echo "sent!";
 	}
-	$params = array(
-		'pid' => -2,
-		'name' => $name,
-		'phone' => $name2,
-		'description' => 'Заявка с мрттого'
-	);
-	if( $curl = curl_init() ) {
-		curl_setopt($curl, CURLOPT_URL, 'http://o.mrimaster.ru/onlineRequest/submit?'.http_build_query($params));
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
-		$out = curl_exec($curl);
-		//echo $out;
-		curl_close($curl);
-	}
-	//?pid=-2&name=Иванова&phone=79112885151&description=мрт%20гм
- 
- //*/
 
 
- 
-  
- 
 // Выводим сообщение пользователю 
  
 print "<script language='Javascript'><!-- 
