@@ -10,9 +10,19 @@ function EvaluateOnPageLoad () {
 	$(".fancybox").fancybox();
 
 	$("#callback").off("submit");
+	var regExpSpbCode = /^\+7\(812\)/;
+	var regExpEight = /^\+7\(8/;
 	//Аякс отправка форм
 	//Документация: http://api.jquery.com/jquery.ajax/
 	$("#callback").submit(function() {
+		//Проверяем, что цифра не потерялась
+		var phoneEl = $(this).find("[name='phone']");
+		var phoneString = phoneEl.val();
+		if (regExpEight.test(phoneString) && ! regExpSpbCode.test(phoneString)) {
+			if (!confirm("Вы уверены, что не опечатались при наборе номера? Введенный номер содержит код, начинающийся с 8. Вы ввели: "+phoneEl.val()+" Обратите внимание, что +7 проставляется автоматически.")) {
+				return false;
+			}
+		}
 		if (yaCounter37896725) {
 			yaCounter37896725.reachGoal('formSent');
 		}
@@ -33,9 +43,18 @@ function EvaluateOnPageLoad () {
 		});
 		return false;
 	});
-
+	var regExpSpbCode = /^\+7\(812\)/;
+	var regExpEight = /^\+7\(8/;
 	$("#callback-registration").off("submit");
 	$("#callback-registration").submit(function(event) {
+		//Проверяем, что цифра не потерялась
+		var phoneEl = $(this).find("[name='phone']");
+		var phoneString = phoneEl.val();
+		if (regExpEight.test(phoneString) && ! regExpSpbCode.test(phoneString)) {
+			if (!confirm("Вы уверены, что не опечатались при наборе номера? Введенный номер содержит код, начинающийся с 8. Вы ввели: "+phoneEl.val()+" Обратите внимание, что +7 проставляется автоматически.")) {
+				return false;
+			}
+		}
 		try {
 			if (yaCounter37896725) {
 				yaCounter37896725.reachGoal('formSent');
@@ -66,7 +85,17 @@ function EvaluateOnPageLoad () {
 
 
 function form () {
+	var regExpSpbCode = /^\+7\(812\)/;
+	var regExpEight = /^\+7\(8/;
 	$("#callback-from-page, #callback-from-page").submit(function() {
+		//Проверяем, что цифра не потерялась
+		var phoneEl = $(this).find("[name='phone']");
+		var phoneString = phoneEl.val();
+		if (regExpEight.test(phoneString) && ! regExpSpbCode.test(phoneString)) {
+			if (!confirm("Вы уверены, что не опечатались при наборе номера? Введенный номер содержит код, начинающийся с 8. Вы ввели: "+phoneEl.val()+" Обратите внимание, что +7 проставляется автоматически.")) {
+				return false;
+			}
+		}
 		if (typeof yaCounter37896725 != "undefined") {
 			yaCounter37896725.reachGoal('formSent');
 		}
